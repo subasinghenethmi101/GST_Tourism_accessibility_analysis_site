@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Arugam Bay Tourist Zone</title>
+
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            line-height: 0.5;
+            background: #f4f4f4;
+        }
+        header {
+            background: #ffffff;
+            color: rgb(0, 0, 0);
+            padding: 20px;
+            text-align: center;
+        }
+        
+.container {
+    width: 90%;
+    max-width: 1100px;
+    margin: 20px auto;
+    
+    /* Background image */
+    background-image: url("Sri Lanka Beach.jpg"); /* change to your image */
+    background-size: cover;          /* make image fill the box */
+    background-position: center;     /* center the image */
+    background-repeat: no-repeat;    /* no tiling */
+    
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 2 5px 10px rgba(0,0,0,0.15);
+   
+    
+    /* Optional overlay to make text readable */
+    background-color: rgba(255, 255, 255, 0.801);
+    background-blend-mode: lighten;
+}
+
+        #map {
+            height: 450px;
+            width: 100%;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+        h2 {
+            margin-top: 30px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+
+
+<div class="grid-container">
+  <div class="box" style="background-image:url('Beach_of_Arugam_Bay.jpg');"></div>
+  <div class="box" style="background-image:url('Picture1.jpg');"></div>
+  <div class="box" style="background-image:url('pool-experience-desktop.jpg');"></div>
+  <div class="box" style="background-image:url('IMG_1195.JPG');"></div>
+
+
+  <h3 style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+    font-size:36px; color:white; text-align:center; background:rgba(0,0,0,0.5);
+    padding:15px 30px; border-radius:8px; animation:fadeIn 2s ease-out forwards;">
+  Arugam Bay Tourist Zone
+</h3>
+
+
+</div>
+
+<style>
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0px;
+  position: relative; /* Needed for title positioning */
+}
+
+/* Background images */
+.box {
+  height: 200px;
+  background-size: cover;
+  background-position: center;
+}
+
+/* Centered title */
+.center-title {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 48px;
+  color: white;
+  text-align: center;
+  letter-spacing: 3px;
+  background: rgba(0,0,0,0.5);
+  padding: 15px 30px;
+  border-radius: 8px;
+
+  /* Animation */
+  opacity: 1;
+  animation: span 5s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; transform: translate(-50%, -60%); }
+  100% { opacity: 1; transform: translate(-50%, -50%); }
+}
+</style>
+
+
+
+
+<header>
+    <nav style="background:#33b1fa; padding:10px; text-align:center;" > <i>· Your Gateway to Coastal Paradise ·</i>
+    </nav>
+</header>
+
+    <div style="text-align:center;">
+    <video width="700" autoplay muted loop>
+  <source src="Arugambay _ A Surfer's Paradise .mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+    </div>
+<h5 style="text-align:center;">  Tourist Life In Arugam Bay <i>(www.srilankatravel.com)</i>  </h5>
+
+<div class="container" id="home">
+    <h2>About Arugam Bay</h2>
+
+<p style="color:rgb(0, 0, 0); max-width:800px; margin:20px auto; 
+line-height:1.6; font-size:16px; text-align:center;">
+Arugam Bay, located on the sunny southeast coast of Sri Lanka, is a vibrant beach destination
+loved by travelers from around the world. Famous for its crystal-blue waves, golden sandy beaches,
+and relaxed island vibe, Arugam Bay is a perfect getaway for surfers, nature lovers, 
+and anyone seeking a peaceful escape by the ocean.
+Known as one of the top surf spots in Asia, the bay attracts beginners and professionals alike, 
+especially during the surf season from April to October. Beyond the beach, the area is surrounded by
+breathtaking natural landscapes—lush 
+lagoons, wildlife-rich national parks, ancient cultural sites, and friendly local communities.Whether you are here to surf the waves, 
+explore hidden nature trails, spot elephants at sunset,enjoy fresh seafood, or simply relax under the coconut trees,
+Arugam Bay offers an unforgettable tropical experience. 
+</p>
+
+
+
+
+<section id="objectives" style="margin: 40px; line-height: 1.6;">
+    <h2>Objectives</h2>
+    <p>
+        This web map is designed to support tourism planning and visitor experience enhancement 
+        within the Arugam Bay Tourism Zone by analyzing accessibility to key attractions.
+    </p>
+
+    <ul>
+        <li>To identify tourism attractions that are easily accessible from main roads, 
+            accommodations, public facilities and public transport services.</li>
+
+        <li>To assist tourists in selecting suitable attractions based on proximity to 
+            essential facilities such as hotels, transport points, Banks, Supermarkets and major road networks.</li>
+
+        <li>To categorize attractions into <b>Highly Accessible</b>, <b>Moderately Accessible</b>, 
+            and <b>Poorly Accessible</b> using buffer distances:
+            <ul>
+                <li>500 m from main roads</li>
+                <li>300 m from hotels and accommodations</li>
+                <li>400 m from public transport points</li>
+            </ul>
+        </li>
+
+        <li>To provide a user-friendly interactive map that helps tourists plan routes, 
+            compare attraction accessibility, and make informed travel decisions.</li>
+
+        <li>To support tourism authorities and local businesses in improving service 
+            delivery and identifying areas needing better connectivity.</li>
+    </ul>
+</section>
+
+    <div style="margin-bottom:20px;">
+        
+        <iframe src="Arugam Bay Tourist_accessibility.html" width="100%" height="800" style="border:0; border-radius:8px;"></iframe>
+    </div>
+
+
+<section id="places" style="width:90%; max-width:1100px; margin:40px auto;">
+
+  <h2 style="text-align:center; margin-bottom:25px;">Top Tourist Places in Arugam Bay</h2>
+
+  <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(250px,1fr)); gap:20px;">
+
+    <div style="background:#fff; border-radius:10px; box-shadow:0 8px 10px rgba(0,0,0,0.15); overflow:hidden;">
+      <img src="beach_photo.jpg" style="width:100%; height:400px; object-fit:cover;">
+      <h3 style="margin:10px;">Arugam Bay Beach</h3>
+
+ <p style="color:rgb(0, 0, 0); max-width:800px; margin:20px auto; 
+line-height:1; font-size:12px; text-align:center;">Arugam Bay provides golden sand, the best surfing 
+        in Sri Lanka, beautiful sunsets,beach-side accommodation, wild elephants roaming around,
+         all round good vibes and most significantly, a desire to stay longer than intended. 
+        It is such a dreamy little spot and you can easily find yourself caught up in the laid-back 
+        lifestyle on offer.
+</p>
+     
+      <p style="margin:5px; color:#555;">
+       
+       </p>
+    </div>
+
+    <div style="background:#fff; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.15); overflow:hidden;">
+      <img src="pottvillagoon.jpeg" style="width:100%; height:400px; object-fit:cover;">
+      <h3 style="margin:10px;">Pottuvil Lagoon</h3>
+
+ <p style="color:rgb(0, 0, 0); max-width:800px; margin:20px auto; 
+line-height:1; font-size:12px; text-align:center;">A lush green mangrove forest surrounds Pottuvil lagoon,
+ and it is a common sight to see mischievous Sri Lanka Macaque Monkeys jumping from tree to tree. Another 
+ relatively common sight is seeing large crocodiles basking in the sun on the banks of the lagoon or on 
+ nearby rocks, looking deceivingly calm, and to see one of these animals is exhilarating, to say the
+  least. But the best-kept secret about the lagoon is that it is a fantastic place to spot elephants;
+   many elephants come here in the evening as a way to cool off and you can watch them frolic in the
+    water from a safe distance.
+</p>
+
+    </div>
+
+    <div style="background:#fff; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.15); overflow:hidden;">
+      <img src="kumana.jpg" style="width:100%; height:400px; object-fit:cover;">
+      <h3 style="margin:10px;">Kumana National Park</h3>
+      <p style="color:rgb(0, 0, 0); max-width:800px; margin:20px auto; 
+line-height:1; font-size:12px; text-align:center;">Kumana National Park is home to a diverse range of 
+wildlife. Leopards are often spotted on 
+early morning or late afternoon safaris. Witness majestic elephants roaming the park’s grasslands and 
+drinking from the lagoons. Keep an eye out for crocodiles basking on the banks of the Kumana Lagoon
+ or look out for various species of deer, such as sambars and axis deer, roaming the park’s forests.
+Kumana is a birder’s paradise, 
+so keep your binoculars handy to spot a variety of colourful and fascinating bird species.
+</p>
+    </div>
+
+    <div style="background:#fff; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.15); overflow:hidden;">
+      <img src="temple.jpg" style="width:100%; height:400px; object-fit:cover;">
+      <h3 style="margin:10px;">Muhudu Maha Viharaya</h3>
+     <p style="color:rgb(0, 0, 0); max-width:800px; margin:20px auto; 
+line-height:1; font-size:12px; text-align:center;">The Muhudu Maha Vihara is a Buddhist temple with 
+over 2000 years of history. The temple is found on the sand dunes of Pottuvil and the 
+beautiful white stupa can be seen all the way from Arugam Bay beach. It is believed that the
+ location of the temple is where Princess Devi, from the Kelaniya kingdom, landed after her father
+  was forced to sacrifice her to appease the gods after a tsunami. Princess Devi arrived in
+   the Ruhuna kingdom and married its king, King Kavan Tissa; the princess is better known as 
+   Viharamahadevi, mother of the fabled King Dutugamunu. 
+The temple is definitely an interesting place to visit, especially if you’re a history buff.
+</p>  
+    </div>
+
+   <div style="background:#fff; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.15); overflow:hidden;">
+      <img src="Arugam-Bay-Sri-Lanka.jpg" style="width:100%; height:400px; object-fit:cover;">
+      <h3 style="margin:15px; line-height: 1;">Arugam Bay Bridge Sunset Point</h3>
+    <p style="color:rgb(0, 0, 0); max-width:800px; margin:20px auto; 
+line-height:1; font-size:12px; text-align:center;">Sunset Point offers a unique experience that is hard
+ to forget, even if the surroundings aren't pristine. While the area may lack organized seating and 
+ cleanliness, the magic of watching the sun dip below the horizon from a boat ride is truly captivating.
+  As you glide over the water, you'll witness birds soaring gracefully around you
+ against a backdrop of majestic mountains and an expansive sky painted in hues of orange and yellow.
+</p>  
+    </div>
+
+       <div style="background:#fff; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.15); overflow:hidden;">
+      <img src="grand_mosque.jpg" style="width:100%; height:400px; object-fit:cover;">
+      <h3 style="margin:10px;">Pottuvil Grand Mosque</h3>
+ <p style="color:rgb(0, 0, 0); max-width:800px; margin:20px auto; 
+line-height:1; font-size:12px; text-align:center;">
+Pottuvil Grand Mosque was founded in 1890 by Saibo Marikkar. It was a very modest structure made 
+of palm leaves until 1948 when it was rebuilt with brick. The present structure with beautiful dome
+ and minarets 
+was built in 2014 by Sadaqatullah Hajiar. It is now commonly known as Pudiya Palli (New Mosque).
+</p>  
+
+  
+   </div>
+
+       <div style="background:#fff; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.15); overflow:hidden;">
+      <img src="town_mosque.jpg" style="width:100%; height:400px; object-fit:cover;">
+      <h3 style="margin:10px;">Town Mosque</h3>
+<p style="color:rgb(0, 0, 0); max-width:800px; margin:20px auto; 
+line-height:1; font-size:12px; text-align:center;">Masjithul Ummah Mosque, located along 
+the Sammanthurai–Deeghavapi Road in pottuvil,
+serves as an important religious and community centre for the predominantly Muslim population of 
+Sammanthurai. Positioned within a densely settled urban area, the mosque supports daily prayers, 
+religious education, and local gatherings, reflecting the cultural identity of the town. Surrounded
+ by residential neighborhoods and other community facilities, its central location makes it easily 
+ accessible to worshippers. While detailed historical records are limited, the mosque plays a key role
+in the social and spiritual life of the Muslim community in this part of the Eastern Province.
+</p>     
+    </div>
+
+       <div style="background:#fff; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.15); overflow:hidden;">
+      <img src="murugan.jpg" style="width:100%; height:400px; object-fit:cover;">
+      <h3 style="margin:10px;">Okanda Sri Murugan Temple</h3>
+<p style="color:rgb(0, 0, 0); max-width:800px; margin:20px auto; 
+line-height:1; font-size:12px; text-align:center;">Okanada Sri Murugan Kovil situated on the Kumana 
+Panama jungle path Okanda Devalaya is believed to be the location God Skanda 
+first sailed into Sri Lanka 
+in a golden boat. 
+</p>     
+    </div>
+
+ <div style="background:#fff; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.15); overflow:hidden;">
+      <img src="smbodi.jpg" style="width:100%; height:400px; object-fit:cover;">
+      <h3 style="margin:10px;">Sambodhi Viharaya</h3>
+<p style="color:rgb(0, 0, 0); max-width:800px; margin:20px auto; 
+line-height:1; font-size:12px; text-align:center;">Sambodhi Viharaya in Ampara is a small local Buddhist
+ temple that serves the surrounding community by providing a peaceful space for worship, meditation,
+  and daily religious activities. Unlike major historic sites in the district such as Deegawapiya 
+  or Samanabedda Viharaya, this vihara functions mainly as a community-level place of devotion for
+   nearby residents, 
+supporting regular rituals, Dhamma teachings, and cultural events. 
+Its setting within a predominantly mixed-ethnic region highlights the continuing presence of 
+Buddhist practice in Ampara, offering spiritual services to local Buddhists and contributing to the 
+religious diversity of the district.
+</p>     
+    </div>
+
+
+       <div style="background:#fff; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.15); overflow:hidden;">
+      <img src="LS_CrocodileRock_Desktop_1920x700.jpg" style="width:100%; height:400px; object-fit:cover;">
+      <h3 style="margin:10px;">Crocodile Rock</h3>
+      <p style="color:rgb(0, 0, 0); max-width:800px; margin:20px auto; 
+line-height:1; font-size:12px; text-align:center;">
+        The name crocodile rock is quite misleading as crocodiles are 
+        nowhere to be seen. But view of the ocean is great from here. Bring some snacks and enjoy the beach. 
+        Although water of the ocean is very clear here as it is less crowded.</p>
+    </div>
+
+       <div style="background:#fff; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.15); overflow:hidden;">
+      <img src="LS_Aru_Elephant-Rock_Mob_800x1000.jpg" style="width:100%; height:400px; object-fit:cover;">
+      <h3 style="margin:10px;">Elephant Rock</h3>
+     <p style="color:rgb(0, 0, 0); max-width:800px; margin:20px auto; 
+line-height:1; font-size:12px; text-align:center;">
+Elephant Rock, located near Arugam Bay, is one of the area’s most popular nature attractions
+ for tourists. This massive rock formation, shaped like an elephant’s head, sits beside an 
+ untouched beach and offers a quiet escape from the busier areas of Arugam Bay. 
+ Visitors can enjoy a short hike to the top, where a stunning panoramic view of the Indian Ocean,
+  golden coastline, and surrounding forest opens up.especially beautiful during sunrise and sunset. 
+  The beach below is ideal for swimming, sunbathing, and photography, and its relative seclusion makes it perfect for travelers seeking a peaceful, natural setting. With its scenic landscape and relaxed atmosphere, Elephant Rock is considered 
+a must-visit spot for anyone exploring the east coast of Sri Lanka. 
+        </p>
+    </div>
+
+       <div style="background:#fff; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.15); overflow:hidden;">
+      <img src="whisky-point-resort.jpg" style="width:100%; height:400px; object-fit:cover;">
+      <h3 style="margin:10px;">Whisky Point Resort</h3>
+     <p style="color:rgb(0, 0, 0); max-width:800px; margin:20px auto; 
+line-height:1; font-size:12px; text-align:center;">
+        Whisky Point Resort is particularly suited for travelers
+         who want a quiet beach stay, with easy access to sea, surf, nature and relaxation, rather 
+         than party-heavy or busy tourist hubs. It works well for surfers, couples, and backpackers 
+         seeking simplicity, comfort, and a mellow vibe. It’s also 
+        a good choice if you prefer direct beach access, good food, friendly staff and a laid-back
+         atmosphere.</p>
+    </div>
+
+       <div style="background:#fff; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.15); overflow:hidden;">
+      <img src="jetwing_surf_.jpg" style="width:100%; height:400px; object-fit:cover;">
+      <h3 style="margin:10px;">Jetwing Surf & Safari </h3>
+      <p style="color:rgb(0, 0, 0); max-width:800px; margin:20px auto; 
+line-height:1; font-size:12px; text-align:center;">
+        Jetwing Surf & Safari is ideal if you want a quiet, 
+        beach-front stay with comfort, nature and surf, perfect for couples, surfers, travellers 
+        wanting a more relaxed vibe, or 
+        anyone looking to explore Sri Lanka’s east coast with a mix of beach,
+         nature and low-impact luxury. Many guests praise the serene beachfront, 
+         spacious cabanas, lovely pool, and the relaxed vibe far from crowded tourist-town bustle.</p>
+    </div>
+
+       <div style="background:#fff; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.15); overflow:hidden;">
+      <img src="spice_trail.jpg" style="width:100%; height:400px; object-fit:cover;">
+      <h3 style="margin:10px;">The Spice Trail</h3>
+     <p style="color:rgb(0, 0, 0); max-width:800px; margin:20px auto; 
+line-height:1; font-size:12px; text-align:center;">
+        The Spice Trail is a boutique-style hotel/resort in Arugam Bay 
+        on Sri Lanka’s east coast offering a mix of relaxed comfort and convenience, 
+        very close to the beach. It aims to give guests a comfortable “home base” for surf holidays,
+         family stays, or laid-back beach trips. It is within walking distance (or a short tuk-tuk ride) 
+         of local beaches like Pasarichenai Beach and the main surf/ beach zone of Arugam Bay making it 
+         convenient for surfers or beach-goers. Also nearby are some points of interest such as 
+         Muhudu Maha Viharaya and other natural or coastal attractions often visited by tourists.</p>
+    </div>
+
+       <div style="background:#fff; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.15); overflow:hidden;">
+      <img src="cozy.jpg" style="width:100%; height:400px; object-fit:cover;">
+      <h3 style="margin:10px;">Cozy Sand Beach Restaurant</h3>
+     <p style="color:rgb(0, 0, 0); max-width:800px; margin:20px auto; 
+line-height:1; font-size:12px; text-align:center;">
+        Cozy Sand Beach Hotel, located near Pottuvil and 
+        Arugam Bay in Sri Lanka, is a small, budget-friendly guesthouse offering a relaxed and informal
+         stay close to the beach. It provides basic amenities such as air-conditioned rooms, free Wi-Fi,
+          and easy access to local shops, restaurants, and popular surf spots. Guests appreciate its cozy,
+           comfortable atmosphere and convenient location for beach activities and exploring the
+            laid-back vibe of Arugam Bay. While the rooms are simple and not luxurious, the hotel 
+            is ideal for budget-conscious travelers,
+         backpackers, or anyone seeking a quiet, casual base near the sea.</p>
+    </div>
+
+       <div style="background:#fff; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.15); overflow:hidden;">
+      <img src="arugam_nest.jpg" style="width:100%; height:400px; object-fit:cover;">
+      <h3 style="margin:10px;">Arugam Nest</h3>
+      <p style="color:rgb(0, 0, 0); max-width:800px; margin:20px auto; 
+line-height:1; font-size:12px; text-align:center;">
+
+Arugam Nest is a cozy guesthouse located just a few minutes’ walk from the beach in Arugam Bay,
+ offering a peaceful and convenient base for travelers. The property features clean, modern rooms 
+ with private bathrooms, free Wi-Fi, and garden or courtyard views, providing a comfortable stay at 
+ an affordable price. Guests appreciate the friendly staff, on-site restaurant serving local and 
+ Asian cuisine, and the quiet location away from the main street noise. While it does not have a 
+ swimming pool, its proximity to surf spots and the beach makes it ideal for surfers and beach lovers. 
+ Overall, Arugam Nest is a great
+ choice for those seeking a relaxed, budget-friendly stay in a prime coastal area of eastern 
+ Sri Lanka.</p>
+    </div>
+
+       <div style="background:#fff; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.15); overflow:hidden;">
+      <img src="BOC.jpg" style="width:100%; height:400px; object-fit:cover;">
+      <h3 style="margin:10px;">Bank of Ceylon Pottuvil</h3>
+    </div>
+
+       <div style="background:#fff; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.15); overflow:hidden;">
+      <img src="police.jpg" style="width:100%; height:400px; object-fit:cover;">
+      <h3 style="margin:10px;">Tourist Police </h3>
+    </div>
+
+     <div style="background:#fff; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.15); overflow:hidden;">
+      <img src="cepetco.jpg" style="width:100%; height:200px; object-fit:cover;">
+      <h3 style="margin:10px;">Cypetco Filling Station </h3>
+    </div>
+
+
+       <div style="background:#fff; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.15); overflow:hidden;">
+      <img src="cargills.jpg" style="width:100%; height:200px; object-fit:cover;">
+      <h3 style="margin:10px;">Cargills Food City - Pottuvil</h3>
+    </div>
+
+       <div style="background:#fff; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.15); overflow:hidden;">
+      <img src="filling.jpg" style="width:100%; height:200px; object-fit:cover;">
+      <h3 style="margin:10px;">Lanka Filling Station</h3>
+
+    </div>
+
+       <div style="background:#fff; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.15); overflow:hidden;">
+      <img src="hospital.jpg" style="width:100%; height:200px; object-fit:cover;">
+      <h3 style="margin:10px;">Base Hospital - Pottuvil</h3>
+    </div>
+
+       <div style="background:#fff; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.15); overflow:hidden;">
+      <img src="bus_pothu.jpg" style="width:100%; height:200px; object-fit:cover;">
+      <h3 style="margin:10px;">SLTB Bus station- Pottuvil</h3>
+    </div>
+
+
+    <div style="background:#fff; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.15); overflow:hidden;">
+      <img src="bus_panama.jpg" style="width:100%; height:200px; object-fit:cover;">
+      <h3 style="margin:10px;">Pottuvil Bus stop</h3>
+    </div>
+
+    
+       <div style="background:#fff; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.15); overflow:hidden;">
+      <img src="peoples.jpg" style="width:100%; height:200px; object-fit:cover;">
+      <h3 style="margin:10px;">Peoples Bank-Pottuvil</h3>
+    </div>
+
+  </div>
+</section>
+
+<div class="container">
+    <h2>Observation and Findings</h2>
+<p style="color:rgb(0, 0, 0); max-width:800px; margin:20px auto; 
+line-height:1; font-size:16px; text-align:justify;">
+<br>This accessibility analysis of Twenty five attractions and facilities in the Arugam Bay area demonstrated clear spatial patterns of how well different locations are supported by surrounding infrastructure.</br>
+<br>Most of the attractions located along the main coastal road and near the central tourism zone were moderately or highly accessible because they are very close to both major roads and clusters of hotels.</br>
+<br>Arugam Bay Surf Point and nearby beach areas have a strong connectedness, which essentially means that tourists can easily access these areas.</br>
+<br><b>5 tourist attraction in Highly accessibility zone </br><br>2 tourist attraction in Moderately accessibility zone </br><br>4 tourist attraction in poorly accessibility zone </b></br>
+<br>In contrast, those attractions that are far from the main road network, such as those in the south and north of the bay, tended to rank as moderately or poorly accessible due to their lack of nearby accommodation and greater travel distance.</br>
+<br>Arugam Bay is a highly tourist-friendly destination, known for its stunning beaches,
+ cultural attractions, and vibrant local experiences. The area is well-connected through 
+ main roads and public transport, making key tourist sites easily accessible for visitors.
+  While some remote spots may require improved access, overall the existing infrastructure
+   supports smooth travel and exploration. With its combination of natural beauty, recreational
+    opportunities, and accessibility, Arugam Bay offers a welcoming and convenient experience for 
+    tourists of all kinds.
+</br>
+</p>  
+</div>
+
+<div class="container">
+<p style="color:rgb(0, 0, 0); max-width:500px; margin:10px auto; 
+line-height:1; font-size:12px; text-align:center;">
+<b>Open Geospatial web-based application Project </b>
+<br>Tourism Mapping & Accessibility Analysis</br>
+<i>Data collected from Google maps and OpenStreetMap | Map powered by Leaflet.js</i>
+</p>   
+</div>
+
+</body>
+</html>

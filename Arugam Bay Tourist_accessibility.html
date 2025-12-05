@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tourist Attraction and Accessibility Map of Arugam Bay</title>
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+
+  <style>
+    #map {
+      height: 600px;
+      width: 100%;
+    }
+  </style>
+
+  <!-- Turf.js (required for buffer) -->
+  <script src="https://cdn.jsdelivr.net/npm/@turf/turf@6/turf.min.js"></script>
+</head>
+<body>
+  <h2>Tourist Attraction and Accessibility Map of Arugam Bay</h2>
+  <div id="map"></div>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script>
+    // Initialize the map
+    var map = L.map('map').setView([6.841259547, 81.83689252], 10); // Arugam Bay area
+
+    // Basemap
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    // --- markers 
+    var marker = L.marker([6.84646, 81.83072]).addTo(map);
+    marker.bindPopup("<br>Arugam Bay Beach<br> Type = Natural Site<br>Highly Accessible");
+    marker = L.marker([6.75832628816822, 81.807018406299]).addTo(map);
+    marker.bindPopup("<br>Kumana National Park<br> Type = Natural Site<br>Moderately Accessible");
+    marker = L.marker([6.8832435627278, 81.8386887235203]).addTo(map);
+    marker.bindPopup("<br>Pottuvil Lagoon<br> Type = Natural Site<br>Poorly Accessible");
+    marker = L.marker([6.86802936717642, 81.8389968658491]).addTo(map);
+    marker.bindPopup("<br>Muhudu Maha Viharaya<br> Type = Cultural Site<br>Poorly Accessible");
+    marker = L.marker([6.855577, 81.831357]).addTo(map);
+    marker.bindPopup("<br>Arugam Bay Bridge Sunset Point<br> Type = View Point<br>Highly Accessible");
+    marker = L.marker([6.87641217393493, 81.8314206591025]).addTo(map);
+    marker.bindPopup("<br>Pottuvil Grand Mosque<br> Type = Cultural Site<br>Highly Accessible");
+    marker = L.marker([6.63213762823605, 81.7666068355584]).addTo(map);
+    marker.bindPopup("<br>Okanda Sri Murugan Temple<br> Type = Cultural Site<br>Moderately Accessible");
+    marker = L.marker([6.820101, 81.822873]).addTo(map);
+    marker.bindPopup("<br>Crocodile Rock<br> Type = Natural Site<br>Poorly Accessible");
+    marker = L.marker([6.809834, 81.824160]).addTo(map);
+    marker.bindPopup("<br>Elephant Rock<br> Type = Natural Site<br>Poorly Accessible");
+    marker = L.marker([6.90619805400955,81.8425122100272]).addTo(map);
+    marker.bindPopup("<br>Whisky Point Resort<br> Type = Hotel & restaurant");
+    marker = L.marker([6.87978347327154, 81.843550267698]).addTo(map);
+    marker.bindPopup("<br>Jetwing Surf & Safari <br> Type = Hotel & restaurant");
+    marker = L.marker([6.87714537705936, 81.8296050687408]).addTo(map);
+    marker.bindPopup("<br>The Spice Trail <br> Type = Hotel & restaurant");
+    marker = L.marker([6.84941294302387, 81.8305393793423]).addTo(map);
+    marker.bindPopup("<br>Cozy Sand Beach Hotel<br> Type =  Hotel & restaurant");
+    marker = L.marker([6.84665987431752, 81.8287572073169]).addTo(map);
+    marker.bindPopup("<br>Arugam Nest<br> Type = Hotel & restaurant");
+    marker = L.marker([6.87402779782158, 81.8305373599037]).addTo(map);
+    marker.bindPopup("<br>Bank of Ceylon Pottuvil<br> Type = Public");
+    marker = L.marker([6.86761892425364, 81.8327392633366]).addTo(map);
+    marker.bindPopup("<br>Lanka Filling Station <br> Type = Public");
+    marker = L.marker([6.875464, 81.830069]).addTo(map);
+    marker.bindPopup("<br>Cargills Food City - Pottuvil<br> Type = Public");
+    marker = L.marker([6.84136880433013, 81.8329992946843]).addTo(map);
+    marker.bindPopup("<br>Tourist Police <br> Type = Public");
+    marker = L.marker([6.875914, 81.829857]).addTo(map);
+    marker.bindPopup("<br>Base Hospital<br> Type = Public");
+    marker = L.marker([6.876923, 81.82946]).addTo(map);
+    marker.bindPopup("<br>Pottuvil Bus Station <br> Type = Public");
+    marker = L.marker([6.873708, 81.8299]).addTo(map);
+    marker.bindPopup("<br>Pottuvil Bus Stop<br> Type = Public");
+    marker = L.marker([6.867124, 81.832789]).addTo(map);
+    marker.bindPopup("<br>Cypetco Filling Station<br> Type = Public");
+    marker = L.marker([6.874559, 81.829669]).addTo(map);
+    marker.bindPopup("<br>People's Bank<br> Type = Public");
+    marker = L.marker([6.855513,81.831786]).addTo(map);
+    marker.bindPopup("<br>Sambodhi Viharaya<br> Type = Cultural Site<br>Highly Accessible");
+    marker = L.marker([6.858754, 81.832177]).addTo(map);
+    marker.bindPopup("<br>SLTB Bus Station<br> Type = Public");
+    marker = L.marker([6.872878, 81.829991]).addTo(map);
+    marker.bindPopup("<br>Town Mosque<br> Type = Cultural Site<br>Highly Accessible");
+
+    // Circles (kept from original, unchanged)
+    L.circle([6.87978347327154, 81.843550267698], {
+      color: "Tomato",
+      fillColor: "Tomato",
+      fillOpacity: 0.3,
+      radius: 300
+    }).addTo(map).bindPopup("Accommodation ");
+
+    L.circle([6.90619805400955,81.8425122100272], {
+      color: "Tomato",
+      fillColor: "Tomato",
+      fillOpacity: 0.3,
+      radius: 300
+    }).addTo(map).bindPopup("Accommodation ");
+
+    L.circle([6.87714537705936, 81.8296050687408], {
+      color: "Tomato",
+      fillColor: "Tomato",
+      fillOpacity: 0.3,
+      radius: 300
+    }).addTo(map).bindPopup("Accommodation ");
+
+    L.circle([6.84941294302387, 81.8305393793423], {
+      color: "Tomato",
+      fillColor: "Tomato",
+      fillOpacity: 0.3,
+      radius: 300
+    }).addTo(map).bindPopup("Accommodation ");
+
+    L.circle([6.84665987431752, 81.8287572073169], {
+      color: "Tomato",
+      fillColor: "Tomato",
+      fillOpacity: 0.3,
+      radius: 300
+    }).addTo(map).bindPopup("Accommodation ");
+
+    L.circle([6.87402779782158, 81.8305373599037], {
+      color: "Yellow",
+      fillColor: "Yellow",
+      fillOpacity: 0.3,
+      radius: 400
+    }).addTo(map).bindPopup("Public Services ");
+
+    L.circle([6.86761892425364, 81.8327392633366], {
+      color: "Yellow",
+      fillColor: "Yellow",
+      fillOpacity: 0.3,
+      radius: 400
+    }).addTo(map).bindPopup(" Public Services");
+
+    L.circle([6.875464, 81.830069], {
+      color: "Yellow",
+      fillColor: "Yellow",
+      fillOpacity: 0.3,
+      radius: 400
+    }).addTo(map).bindPopup("Public Services");
+
+    L.circle([6.84136880433013, 81.8329992946843], {
+      color: "Yellow",
+      fillColor: "Yellow",
+      fillOpacity: 0.3,
+      radius: 400
+    }).addTo(map).bindPopup("Public Services");
+
+    L.circle([6.875914, 81.829857], {
+      color: "Yellow",
+      fillColor: "Yellow",
+      fillOpacity: 0.3,
+      radius: 400
+    }).addTo(map).bindPopup("Public Services");
+
+    L.circle([6.876923, 81.82946], {
+      color: "Green",
+      fillColor: "Green",
+      fillOpacity: 0.3,
+      radius: 400
+    }).addTo(map).bindPopup("Public Transpotation");
+
+    L.circle([6.873708, 81.8299], {
+      color: "Green",
+      fillColor: "Green",
+      fillOpacity: 0.3,
+      radius: 400
+    }).addTo(map).bindPopup("Public Transpotation");
+
+    L.circle([6.858754, 81.832177], {
+      color: "Green",
+      fillColor: "Green",
+      fillOpacity: 0.3,
+      radius: 400
+    }).addTo(map).bindPopup("Public Transpotation");
+
+    L.circle([6.867124, 81.832789], {
+      color: "Yellow",
+      fillColor: "Yellow",
+      fillOpacity: 0.3,
+      radius: 400
+    }).addTo(map).bindPopup("Public Services");
+
+    L.circle([6.874559, 81.829669], {
+      color: "Yellow",
+      fillColor: "Yellow",
+      fillOpacity: 0.3,
+      radius: 400
+    }).addTo(map).bindPopup("Public Services");
+
+    // --- ROAD + 500m BUFFER (ADDED) ---
+    // Example road near Arugam Bay: Pottuvil-Panama road (B374) (approximate sample points)
+    const arugamBayRoad = [
+      [6.878140, 81.828991],
+      [6.877903, 81.829146],
+      [6.877698, 81.829230],
+      [6.877333, 81.829321],
+      [6.876958, 81.829401],
+      [6.876598, 81.829471],
+      [6.876060, 81.829586],
+      [6.875352, 81.829718],
+      [6.874668, 81.829852],
+      [6.873938, 81.829946],
+      [6.873256, 81.830069],
+      [6.872540, 81.830168],
+      [6.872151, 81.830233],
+      [6.871352, 81.830412],
+      [6.870745, 81.830600],
+      [6.870380, 81.830756],
+      [6.869286, 81.831654],
+      [6.868823, 81.832043],
+      [6.868511, 81.832236],
+      [6.867622, 81.832556],
+      [6.864051, 81.833022],
+      [6.863238, 81.833162],
+      [6.862964, 81.833159],
+      [6.862743, 81.833130],
+      [6.862743, 81.833130],
+      [6.861755, 81.832759],
+      [6.861068, 81.832478],
+      [6.860586, 81.832287],
+      [6.859968, 81.832024],
+      [6.859478, 81.831837],
+      [6.859270, 81.831756],
+      [6.858605, 81.831705],
+      [6.857955, 81.831802],
+      [6.857057, 81.831949],
+      [6.856418, 81.832054],
+      [6.855811, 81.832145],
+      [6.855609, 81.832156],
+      [6.855425, 81.832086],
+      [6.855273, 81.831971],
+      [6.854871, 81.831614],
+      [6.854325, 81.831123],
+      [6.853846, 81.830724],
+      [6.853452, 81.830353],
+      [6.852893, 81.830133],
+      [6.851649, 81.829889],
+      [6.851345, 81.829892],
+      [6.84528, 81.83076],
+      [6.84450, 81.83098],
+      [6.843100, 81.831611],
+      [6.839361, 81.833135],
+      [6.837902, 81.832234],
+      [6.835580, 81.829702],
+      [6.834035, 81.827846],
+      [6.833151, 81.825442],
+      [6.832959, 81.823168],
+      [6.833012, 81.822352],
+      [6.832363, 81.821033],
+      [6.831212, 81.820260],
+      [6.830403, 81.819584],
+      [6.828826, 81.817020],
+      [6.827217, 81.815228],
+      [6.823031, 81.813823],
+      [6.822168, 81.813308],
+      [6.820858, 81.810551],
+      [6.819537, 81.808705],
+      [6.817172, 81.806785],
+      [6.817172, 81.806785],
+      [6.813752, 81.806216],
+      [6.813166, 81.805948],
+      [6.812101, 81.805036],
+      [6.811547, 81.804993],
+      [6.810631, 81.805358],
+      [6.809384, 81.805937],
+      [6.808585, 81.806774],
+      [6.807115, 81.807976],
+      [6.805379, 81.810304],
+      [6.803898, 81.813823],
+      [6.802129, 81.814778],
+      [6.796590, 81.815786],
+      [6.795823, 81.815625],
+      [6.794811, 81.814660],
+      [6.793553, 81.813211],
+      [6.789782, 81.810830],
+      [6.787225, 81.807160],
+      [6.785691, 81.805197],
+      [6.78512, 81.80467],
+      [6.784434, 81.803395],
+      [6.783752, 81.802590],
+      [6.781089, 81.801045],
+      [6.780215, 81.800669],
+      [6.778670, 81.799672],
+      [6.777925, 81.799468],
+      [6.772885, 81.799929],
+      [6.771468, 81.799972],
+      [6.764298, 81.798534],
+      [6.762806, 81.799307],
+      [6.760271, 81.801646],
+      [6.756702, 81.804746]
+    ];
+
+    // Draw the road polyline (keep visible)
+    const roadLine = L.polyline(arugamBayRoad, { color: 'red', weight: 6 }).addTo(map);
+
+    // Convert points to GeoJSON (LineString expects [lng, lat])
+    const roadGeoJSON = {
+      type: "Feature",
+      properties: {},
+      geometry: {
+        type: "LineString",
+        coordinates: arugamBayRoad.map(p => [p[1], p[0]])
+      }
+    };
+
+    // Create a 500 meter buffer using Turf.js
+    // turf.buffer returns a GeoJSON Polygon / MultiPolygon
+    const buffer500 = turf.buffer(roadGeoJSON, 500, { units: 'meters' });
+
+    // Draw the buffer in BLUE (fill + outline)
+    const bufferLayer = L.geoJSON(buffer500, {
+      style: function () {
+        return {
+          color: 'blue',        // outline color
+          weight: 2,
+          fillColor: 'blue',    // fill color
+          fillOpacity: 0.25
+        };
+      }
+    }).addTo(map);
+
+    // Optionally bring buffer to back so markers remain clickable
+    bufferLayer.eachLayer(function(layer){
+      if (layer.bringToBack) layer.bringToBack();
+    });
+
+    // Fit map to the buffer 
+    map.fitBounds(bufferLayer.getBounds());
+
+  </script>
+</body>
+</html>
